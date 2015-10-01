@@ -1,0 +1,10 @@
+
+language: c
+os:
+  - linux
+  - osx
+install:
+  - if [ x$TRAVIS_OS_NAME == xlinux ]; then sudo apt-get -qq -y update && sudo apt-get install valgrind; fi
+  - if [ x$TRAVIS_OS_NAME == xosx ]; then brew install --HEAD valgrind; fi
+script:
+  - mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Debug .. && make && valgrind --leak-check=full --track-origins=yes ./wordexp_test
