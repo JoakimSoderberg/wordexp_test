@@ -22,7 +22,7 @@ static void xfree(void *p)
 char **test_wordexp(const char *cmdline, int *argc)
 {
 	char **argv = NULL;
-	int i;
+	size_t i;
 	int ret;
 	wordexp_t p;
 	memset(&p, 0, sizeof(p));
@@ -60,7 +60,7 @@ fail:
 
 	if (argv)
 	{
-		for (i = 0; i < *argc; i++)
+		for (i = 0; i < (size_t)*argc; i++)
 		{
 			xfree(&argv[i]);
 		}
@@ -93,6 +93,8 @@ int main(int argc, char **argv)
 	int count = 0;
 	char **args = NULL;
 	int i;
+	(void)argc;
+	(void)argv;
 
 	args = test_wordexp(cmd, &count);
 
